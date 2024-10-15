@@ -1,0 +1,81 @@
+package JayFrame;
+//This JFrame class is private so therefor the user does not have access to all methods
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class JFrameOne extends JFrame {
+    private JFrame frame;
+    public JFrameOne() {
+        initialize();
+    }
+    public void initialize() {
+        frame = new JFrame();
+        setTitle("Information");
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setBounds(100, 100, 650, 650);
+        setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
+        panel.setBackground(Color.lightGray);
+        JButton button = new JButton("Enter");
+        panel.add(button);
+        JButton button2 = new JButton("Clear");
+        panel.add(button2);
+        panel.setPreferredSize(new Dimension(500, 500));
+
+        add(panel, BorderLayout.CENTER);
+
+        JLabel nameL = new JLabel("Name:");
+        JTextField nameTF = new JTextField(15);
+        panel.add(nameL);
+        panel.add(nameTF);
+
+        JLabel emailL = new JLabel("Email:");
+        JTextField emailTF = new JTextField(15);
+        panel.add(emailL);
+        panel.add(emailTF);
+
+        JLabel passwordL = new JLabel("Password:");
+        JPasswordField passwordTF = new JPasswordField(15);
+        panel.add(passwordL);
+        panel.add(passwordTF);
+
+        JLabel confirmPasswordL = new JLabel("Confirm Password:");
+        JPasswordField confirmPasswordTF = new JPasswordField(15);
+        panel.add(confirmPasswordL);
+        panel.add(confirmPasswordTF);
+
+        button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent A) {
+                if (nameTF.getText().isEmpty() || emailTF.getText().isEmpty() ||
+                        passwordTF.getPassword().length == 0 ||
+                        confirmPasswordTF.getPassword().length == 0) {
+                    JOptionPane.showMessageDialog(JFrameOne.this, "Please fill in all fields.", "Error", JOptionPane.ERROR_MESSAGE);
+                } else {
+                    String message = String.format("Name: %s\nEmail: %s\nPassword: %s\nConfirm Password: %s",
+                            nameTF.getText(),
+                            emailTF.getText(),
+                            new String(passwordTF.getPassword()),
+                            new String(confirmPasswordTF.getPassword()));
+                    JOptionPane.showMessageDialog(JFrameOne.this, message, "Submission", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                nameTF.setText("");
+                emailTF.setText("");
+                passwordTF.setText("");
+                confirmPasswordTF.setText("");
+            }
+        });
+
+        setVisible(true);
+    }
+
+}
